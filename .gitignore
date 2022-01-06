@@ -1,0 +1,16 @@
+*.obj
+*.tlog
+*.pdb
+*.VC.db
+*.v11.suo
+*.sdf
+*.cod
+*.dll
+jtag_hw_mbftdi_blaster_src/jtag_hw_mbftdi_blaster.VC.db
+jtag_hw_mbftdi_blaster_src/jtag_hw_mbftdi_blaster.sdf
+jtag_hw_mbftdi_blaster_src/jtag_hw_mbftdi_blaster.v11.suo
+jtag_hw_mbftdi_blaster_src/jtag_hw_net_blaster.vcxproj.user
+jtag_hw_mbftdi_blaster_src/Release/
+jtag_hw_mbftdi_blaster_src/Win32/
+jtag_hw_mbftdi_blaster_src/.vs/
+jtag_hw_mbftdi_blaster_src/x64/

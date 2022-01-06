@@ -1,0 +1,196 @@
+libftd2xx Release Notes
+
+1.4.6
+Add ARM V8 build.
+
+1.4.4
+Reduce time taken to peform an FT_CreateDeviceInfoList.
+Small performance gains on FT_read.
+
+1.4.2
+Rename constructor and destructor to avoid conflict with MySQL.
+Minor updates to ftd2xx.h to match Windows version.
+
+1.4.0
+Update libusb from 1.0.18 to 1.0.20.
+Remove lib_table method for specifying custom VID+PIDs.
+
+1.3.7
+Allow FT_SetVIDPID to be called multiple times (no need to save and restore).
+The LibTable method still works but will be removed soon.
+
+1.3.6
+Release to web as platform-specific tgz packages.
+
+1.3.5
+Add support for ARMv7 uClibC targets.
+
+1.3.3
+Fix potential EEPROM corruption when writing to User Area on type 56 and
+66 EEPROMs.
+Harmonise ftd2xx.h with up-to-date Windows version.
+Fix out-of-step versions of ftd2xx.h and WinTypes.h in examples directory.
+
+1.3.1
+Add builds for various ARM flavours, including v5, v6 and v7.
+
+1.3.0
+Replace libusbx 1.0.12 with libusb 1.0.18 (re-unified with libusbx).
+
+1.2.8
+Remove dependence on GLIBC 2.7 again, accidentally re-introduced in 1.2.0 
+with the switch to libusbx.
+Remove dependence of 64-bit library on GLIBC 2.14.
+
+1.2.2
+Fix bug where small numbers of bytes might be lost at low transfer speeds.
+
+1.2.0
+Replace libusb (1.0.8) with libusbx (1.0.12).
+Fix leaks introduced in 1.1.12: make FT_Close wait for outstanding requests.
+Fix bug where FT_GetStatus would silently ignore bytes received after waking 
+from sleep: treat time-out like removal.
+Fix Mac crash discovered investigating above bug by reducing memory churn.
+Fix FT_SetDeadmanTimeout implementation: now matches Windows driver, and uses 
+the device's default value, rather than the system-wide hard-coded default.
+Fix a few early-exit crashes.
+
+1.1.12
+Add basic support (not EEPROM) for X-series chips.
+Reduce memory churn during Bulk-In processing.
+Avoid potential crashes in FT_Close by not cancelling outstanding transfers: 
+note - this causes FT_Close to leak a few bytes in some scenarios.
+Improve thread safety to fix potential shutdown crashes.
+
+1.1.10
+Add timeout for FT_Read; zero means infinite.
+Stop reading Bulk-In data when buffer is full, to avoid data loss.  (Now 
+matches Windows driver behaviour.)
+Fix a potential crash in FT_Read.
+Disable libusb's internal logging as it may be implicated in crashes.
+Fix potential crash when using Parallel FIFO (fast) reads.
+
+1.1.0
+Improve throughput by using multiple intermediate buffers and asynchronous 
+libusb requests.
+Use separate threads for requesting and processing Bulk-In data, like the 
+Windows driver.
+Support use in Android JNI projects.
+Add FT_CyclePort function.  As with the Windows driver, this causes a 
+re-enumeration of the device.
+Fix bug where FT_SetFlowControl had no effect without explicitly setting RTS
+or DTR.
+Improve unplug detection; better Bulk-In error handling after machine sleep.
+Avoid potential crash in static build when freeing a config descriptor 
+allocated with insufficient permissions (0660).
+Correct Rx and Tx LED definitions for FT232H device EEPROM CBUS options.
+Pass Valgrind test: avoid leaking config descriptor, and free the device list
+when FT_Open exits early.
+Improve read timeouts.
+Fix FT_GetBitMode and FT_GetLatencyTimer bugs.
+
+1.0.4
+Add support for FT232H, including access to EEPROM (and its User Area).
+Fix multi-threaded write bug.
+Fix potential hang when accessing the device list.
+Disable libusb's use of timerfd, since this requires GLIBC 2.7.
+Fix bug opening devices using bad strings.
+
+1.0.3
+Fix potential crash in FT_ListDevices.
+
+1.0.2
+Remove dependence on GLIBC 2.8.
+Resolve issue where attempting to open a higher index interface on a device 
+than is available could cause a segmentation violation.
+
+1.0.1
+Remove libusb kernel_driver calls as this could allow competing multiple 
+D2XX processes to access the same device.
+Remove dependence on GLIBC 2.4.
+
+1.0.0
+Major upgrade.  
+Fix numerous bugs.
+Add support for location IDs.
+Upgrade libusb to version 1.0.8 - requires udev (present on all 2.6 kernels).
+
+0.4.14
+Add enhancement to enable use in SuSe 10.2 default kernel.
+Correct FT_GetDeviceInfoList behaviour.
+
+0.4.13
+Fix software flow control (strip out flow control characters).
+Add FT_SetDeadmanTimeout API call.
+
+0.4.12
+Add configuration file option added to perform a usb reset on device open. 
+(See Config.txt for further details.) 
+
+0.4.11
+Enhance FT_SetUSBParameters - check for invalid parameters.
+Add driver version functions.
+Alter behaviour of a usb reset - only performed on unopened device (2.6 
+kernels only).
+Improved multi-threaded access.
+
+0.4.10
+Add W32 functions and samples (for the extra event handling).
+Add support for FT232R EEPROM.
+Fix minor FT_OpenEx bugs.
+Robust checking of passed in arguments.  Fail on invalid handle or NULL 
+pointers instead of causing Segmentation Faults.
+
+0.4.9
+Fix FT_OpenEx bug.  Please report any future bugs, as different
+distributions may behave in a different manner.
+Fix 100% CPU count when using FT_SetBitMode and not using FT_Read to clear 
+internal buffers.
+
+0.4.8
+Fix FT_Open bug - related to the detach of ftdi_sio kernel driver.
+
+0.4.7
+Fix Read-timeout bug.
+
+0.4.6
+Fix bug which prevented programming of FT2232 user area.
+
+0.4.5
+Allow detaching of ftdi_sio kernel driver on device access.
+
+0.4.4
+Add FT_CreateDeviceInfoList, FT_GetDeviceInfoList, FT_GetDeviceInfoDetail, 
+FT_EE_ReadEx and FT_EE_ProgramEx.
+
+0.4.3
+Fix bulk-write bug on 2.6 kernels - requires "/proc/sys/kernel/osrelease" file 
+to be present.
+
+0.4.2
+Fix bug in lib_table functionality. Now works with both static and dynamic 
+library versions.
+
+0.4.1
+Fix modem event notification bug.
+
+0.4.0
+Compile user-space driver with GCC version 3.3.1.
+Convert all library code to C, so no C++ extensions required - should help 
+with some C++ linkage problems.  PLEASE NOTE: due to the conversion to C there 
+is a small chance that you will experience problems; a full recompile of your 
+application may solve this.  If not, please contact FTDI Support.  Users of 
+the PenScope and Dualscope may experience problems related to this.  Please 
+contact FTDI Support for a suitable update.
+Fix FT_GetBitMode bug.
+Fix FT_Read timeout bug.
+Fix FT_GetStatus bug.
+Static library available (see static folder on how to compile).
+Static linkage to libusb to avoid installation issues.
+
+0.3.0
+Add timeouts.
+Add EEPROM reading/writitng.
+Add event handling (see example on how to use).
+Add more examples to help with development.
+Add FT_SetVIDPID - see example.

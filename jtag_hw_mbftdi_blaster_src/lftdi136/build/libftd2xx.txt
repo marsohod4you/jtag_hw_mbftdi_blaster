@@ -1,0 +1,5 @@
+Output of 'file' command:
+=========================
+./build/x86_64/libftd2xx.so.1.3.6: ELF 64-bit LSB  shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=f92fa2193f22cff96a50985c41da1e234344b0fc, not stripped
+Output of 'readelf -A' command:
+===============================
